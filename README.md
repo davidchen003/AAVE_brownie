@@ -54,7 +54,7 @@
 - WETH token contract on etherscan is `0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2`, which we'll use in brownie-config for **mainnet-fork** (it will be the same for mainnet if we go for production)
 - It's a better practice to use `get_contract()` as we did in brownie Lottery, but here we'll just use brownie-config for simplicity.
 
-## Swap our ETH for WETH
+## Swap our ETH for WETH, on Kovan
 
 - [WETH token contract](https://kovan.etherscan.io/address/0xd0a1e359811322d97991e03f863a0c30c2cf029c#code), different from above WETHGateway. We'll use this address in our `brownie-config` file.
 
@@ -68,3 +68,12 @@
   - using above transaction hash to locate the WETH contract address (0xd0a1e359811322d97991e03f863a0c30c2cf029c), use it to import the 0.1WETH to MetaMask wallet.
 
 **Commit 1**
+
+## Swap our ETH for WETH, on mainnet-fork
+
+- `scripts/aave_borrow.py`
+- test `get_weth()` on mainnet-fork
+  - `$brownie run scripts/aave_borrow.py --network mainnet-fork`
+  - testing everything on mainnet-fork is going to give us an accurate view of what we will get when doing this on the mainnet.
+
+**Commit 2**
