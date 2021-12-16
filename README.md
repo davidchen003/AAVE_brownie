@@ -77,3 +77,35 @@
   - testing everything on mainnet-fork is going to give us an accurate view of what we will get when doing this on the mainnet.
 
 **Commit 2**
+
+## Deposit
+
+- [AAVE LendingPool](https://docs.aave.com/developers/the-core-protocol/lendingpool)
+
+  - deposit()
+  - withdraw()
+  - borrow()
+  - repay()
+  - ...
+
+- `interfaces/ILendingPoolAddressesProvider.sol`, copied from [AAVE](https://docs.aave.com/developers/the-core-protocol/addresses-provider/ilendingpooladdressesprovider)
+
+  - we can make a custom interface if we're only going to use one or two functions:
+  - `interface ILendingPoolAddressesProvider {function getLendingPool() external view returns (address);}`
+  - specify the address of LendingPoolAddressesProvider contract (mainnet `0xb53c1a33016b2dc2ff3653530bff1848a515c8c5#code`, Kovan `0x88757f2f99175387ab4c6a4b3067c77a695b0349`), from [AAVE](https://docs.aave.com/developers/deployed-contracts/deployed-contracts), in brownie-config
+
+- `interfaces/ILendingPool.sol`, copied from [AAVE](https://docs.aave.com/developers/the-core-protocol/lendingpool/ilendingpool), but to change from
+
+  - importing locally:
+    - `import {ILendingPoolAddressesProvider} from './ILendingPoolAddressesProvider.sol';`
+    - `import {DataTypes} from './DataTypes.sol';`
+  - to importing from Github:
+    - `from "@aave/contracts/interfaces/....`
+  - and add corresponding dependencies and remapping in brownie-config.
+
+  - interfaces/IERC20.sol, copied from course github. See [EIP-20](https://eips.ethereum.org/EIPS/eip-20) for more info.
+    - need its `approve()` function to approve the token before we can deposit it.
+
+- ` brownie run scripts/aave_borrow.py --network mainnet-fork`
+
+**Commit 3**
