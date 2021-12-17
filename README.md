@@ -133,3 +133,27 @@
 - `$brownie run scripts/aave_borrow.py`, din't specify `--network mainnet-fork` because that's the default in brownie-config.
 
 **Commit 5**
+
+## Deploy to Kovan testnet
+
+- comment out `repay_all()` so to see the balance
+- make sure MetaMast is open, on Kovan testnet, with ETH balance
+
+- `$brownie run scripts/get_weth.py --network kovan` to get 0.1WETH
+
+  - if MetaMask doesn't have WETH yet, you can use weth_token address `0xd0a1e359811322d97991e03f863a0c30c2cf029c` to import the token
+  - there is an error message `TransactionError: Tx dropped without known replacement: 0x6e25847611aaddca40f727791c135f9179e331ad548b8c3c0b9ac755bbc1ca9b`, but transaction seems went throught (MetaMask ETH reducted by 0.1 and WETH added by 0.1)
+
+- `$brownie run scripts/aave_borrow.py --network kovan`
+  - use Dai Token address `0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD` to import the borrowed Dai token into MetaMast, there are 301.866 Dai in it.
+  - also see WETH reduced by 0.1 (deposited to AAVE)
+  - but see 0.1 aWETH (money in AAVE)
+  - we can also check our [AAVE dashboard](https://staging.aave.com/#/dashboard) for the whole picture
+  - keep in mind, when we repay, it will be more than what we just borrowed because of the interest accrued interest.
+
+## Test
+
+- `tests/test_aave_borrow.py`
+- `$brownie test`
+
+**Commit 6**
