@@ -125,3 +125,11 @@
 - `$brownie run scripts/aave_borrow.py`, din't specify `--network mainnet-fork` because that's the default in brownie-config.
 
 **Commit 4**
+
+## Repay
+
+- [repay()]()https://docs.aave.com/developers/the-core-protocol/lendingpool#borrow
+
+- `$brownie run scripts/aave_borrow.py`, din't specify `--network mainnet-fork` because that's the default in brownie-config.
+
+**Commit 5**
