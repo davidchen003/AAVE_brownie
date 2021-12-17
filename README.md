@@ -71,7 +71,7 @@
 
 ## Swap our ETH for WETH, on mainnet-fork
 
-- `scripts/aave_borrow.py`
+- `$scripts/aave_borrow.py`
 - test `get_weth()` on mainnet-fork
   - `$brownie run scripts/aave_borrow.py --network mainnet-fork`
   - testing everything on mainnet-fork is going to give us an accurate view of what we will get when doing this on the mainnet.
@@ -92,7 +92,7 @@
 
   - we can make a custom interface if we're only going to use one or two functions:
   - `interface ILendingPoolAddressesProvider {function getLendingPool() external view returns (address);}`
-  - specify the address of LendingPoolAddressesProvider contract (mainnet `0xb53c1a33016b2dc2ff3653530bff1848a515c8c5#code`, Kovan `0x88757f2f99175387ab4c6a4b3067c77a695b0349`), from [AAVE](https://docs.aave.com/developers/deployed-contracts/deployed-contracts), in brownie-config
+  - specify the address of LendingPoolAddressesProvider contract (mainnet `0xb53c1a33016b2dc2ff3653530bff1848a515c8c5`, Kovan `0x88757f2f99175387ab4c6a4b3067c77a695b0349`), from [AAVE](https://docs.aave.com/developers/deployed-contracts/deployed-contracts), in brownie-config
 
 - `interfaces/ILendingPool.sol`, copied from [AAVE](https://docs.aave.com/developers/the-core-protocol/lendingpool/ilendingpool), but to change from
 
@@ -106,6 +106,22 @@
   - interfaces/IERC20.sol, copied from course github. See [EIP-20](https://eips.ethereum.org/EIPS/eip-20) for more info.
     - need its `approve()` function to approve the token before we can deposit it.
 
-- ` brownie run scripts/aave_borrow.py --network mainnet-fork`
+- `$brownie run scripts/aave_borrow.py --network mainnet-fork`
 
 **Commit 3**
+
+## Borrow
+
+- `getUserAccountData()` see [AAVE doc](https://docs.aave.com/developers/the-core-protocol/lendingpool#getuseraccountdata)
+- brownie-config
+
+  - `dai_eth_price_feed` (DAI/ETH), from [Chainlink Data Feed](https://docs.chain.link/docs/ethereum-addresses/)
+  - `interfaces/AggregatorV3Interface.sol`, [Chainlink](https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol). We can name is as `IAggregatorV3.sol` if we want
+  - `dai_token`, from [etherscan](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f)
+    - Kovan's address changes often, make sure the check the lastest at [AAVE doc](https://aave.github.io/aave-addresses/kovan.json)
+
+- [borrow()](https://docs.aave.com/developers/the-core-protocol/lendingpool#borrow)
+
+- `$brownie run scripts/aave_borrow.py`, din't specify `--network mainnet-fork` because that's the default in brownie-config.
+
+**Commit 4**
